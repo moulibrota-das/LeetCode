@@ -10,36 +10,24 @@ using namespace std;
 
 class Solution{
     public:
-    void solve(int i, int j, string temp, vector<string>& ans, vector<vector<int>> &m, int n){
+    void solve(int i, int j, string temp, vector<string>& ans, vector<vector<int>> &m, int n, int di[], int dj[]){
         if(i == n-1 && j==n-1){
             ans.push_back(temp);
             return;
         }
+        
+        string dir = "DLRU";
+        
+        for(int index=0; index<4; index++){
+            int nexti = i + di[index];
+            int nextj = j + dj[index];
             
-        if((i-1) >= 0 && m[i-1][j] == 1){
-            m[i][j] = 0;
-            solve(i-1,j,temp+"U",ans,m,n);
-            m[i][j] = 1;
+            if(nexti >= 0 && nextj>=0 && nexti<n && nextj < n &&  m[nexti][nextj] == 1){
+                m[i][j] = 0;
+                solve(nexti, nextj, temp+dir[index],ans,m,n,di,dj);
+                m[i][j] = 1;
+            }
         }
-        
-        if((i+1) < n && m[i+1][j] == 1){
-            m[i][j] = 0;
-            solve(i+1,j,temp+"D",ans,m,n);
-            m[i][j] = 1;
-        }
-        
-        if((j+1) < n && m[i][j+1] == 1){
-            m[i][j] = 0;
-            solve(i,j+1,temp+"R",ans,m,n);
-            m[i][j] = 1;
-        }
-        
-        if((j-1) >= 0 && m[i][j-1] == 1){
-            m[i][j] = 0;
-            solve(i,j-1,temp+"L",ans,m,n);
-            m[i][j] = 1;
-        }
-        
         
     }
     vector<string> findPath(vector<vector<int>> &m, int n) {
@@ -47,7 +35,9 @@ class Solution{
         if(m[n-1][n-1] == 0 || m[0][0] == 0) return {"-1"};
         
         vector<string> ans;
-        solve(0,0,"",ans,m,n);
+        int di[] = {1,0,0,-1};
+        int dj[] = {0,-1,1,0};
+        solve(0,0,"",ans,m,n,di,dj);
         
         if(ans.size() == 0) return {"-1"};
         else return ans;
