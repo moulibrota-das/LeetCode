@@ -18,15 +18,19 @@ public:
         ListNode *ptr = dummy, *curr = ptr->next;
         
         
-        while(ptr->next){
-            curr = ptr->next;
-            int count = 0;
-            while(curr->next && curr->val == curr->next->val){
+        while(curr && curr->next){
+            
+            if(curr->val == curr->next->val){
+                while(curr->next && curr->val == curr->next->val){
+                    curr = curr->next;
+                }
+                ptr->next = curr->next;
                 curr = curr->next;
-                count++;
             }
-            if(count>0) ptr->next = curr->next;
-            else ptr=ptr->next;
+            else{
+                ptr=ptr->next;
+                curr=curr->next;
+            } 
         }
         
         return dummy->next;
