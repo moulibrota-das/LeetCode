@@ -18,36 +18,17 @@ public:
         ListNode *dummy = new ListNode(-1);
         ListNode *ptr=dummy;
         
-        while(l1 && l2){
-            sum = l1->val + l2->val + carry;
-            ListNode *temp = new ListNode(sum%10);
-            ptr->next = temp;
+        while(l1 || l2){
+            sum = (l1==NULL ? 0:l1->val) + (l2==NULL ? 0:l2->val) + carry;
+            ptr->next = new ListNode(sum%10);
             ptr = ptr->next;
             carry = sum / 10;
-            l1 = l1->next;
-            l2 = l2->next;
+            if(l1)  l1 = l1->next;
+            if(l2)  l2 = l2->next;
         }
         
-        while(l1){
-            sum = l1->val + carry;
-            ListNode *temp = new ListNode(sum%10);
-            ptr->next = temp;
-            ptr = ptr->next;
-            carry = sum / 10;
-            l1 = l1->next;
-        }
-        
-        while(l2){
-            sum = l2->val + carry;
-            ListNode *temp = new ListNode(sum%10);
-            ptr->next = temp;
-            ptr = ptr->next;
-            carry = sum / 10;
-            l2 = l2->next;
-        }
         if(carry > 0){
-            ListNode *temp = new ListNode(carry);
-            ptr->next = temp;
+            ptr->next = new ListNode(carry);
         }
         
         return dummy->next;
