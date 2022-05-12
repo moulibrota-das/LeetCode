@@ -6,11 +6,11 @@ public:
         
         for(int i=0; i<n; i++){
             int node = abs(nums[i]);
-            if(nums[node - 1] < 0){
-                ans.push_back(node);
+            if(nums[node - 1] > 0){
+                nums[node - 1] = nums[node - 1] * -1;
             }
             else{
-                nums[node - 1] = nums[node - 1] * -1;
+                ans.push_back(node);
             }
         }
         
