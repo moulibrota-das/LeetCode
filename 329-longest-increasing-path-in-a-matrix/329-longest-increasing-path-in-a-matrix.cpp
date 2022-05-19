@@ -25,7 +25,10 @@ public:
         int ans = 0;
         for(int i=0; i<n; i++){
             for(int j = 0; j<m; j++){
-                ans = max(ans, solve(i,j,dir,dp,matrix,n,m));
+                if(dp[i][j] == -1)
+                    ans = max(ans, solve(i,j,dir,dp,matrix,n,m));
+                else
+                    ans = max(ans,dp[i][j]);
             }
         }
         
