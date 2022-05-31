@@ -1,21 +1,21 @@
 class Solution {
 public:
     bool hasAllCodes(string s, int k) {
-        int n = pow(2,k);
-        if(n > s.size()) return false;
-        set<string> set;
-        
-        string st="";
-        for(int i=0; i<k; i++){
-            st += s[i];
+        int n = 1 << k;
+        if(n > (s.size())) return false;
+        vector<int> arr(n,0);
+        int hash = 0, all = n-1;
+
+        for(int i=0; i<s.size(); i++){
+            hash = (hash << 1)&all | (s[i] - '0');
+            if(i >= k-1 && arr[hash] == 0){
+                arr[hash] = 1;
+                n--;
+                if(n == 0)
+                    return true;
+            }
         }
-        set.insert(st);
-        for(int i=k; i<s.size(); i++){
-            st = st.substr(1,k-1) + s[i];
-            set.insert(st);
-        }
         
-        if(set.size() == n) return true;
-        else return false;
+        return false;
     }
 };
