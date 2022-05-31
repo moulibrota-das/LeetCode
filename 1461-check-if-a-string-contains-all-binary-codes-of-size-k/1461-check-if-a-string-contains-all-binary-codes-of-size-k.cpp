@@ -2,7 +2,7 @@ class Solution {
 public:
     bool hasAllCodes(string s, int k) {
         int n = 1 << k;
-        if(n > (s.size())) return false;
+        if(n > (s.size()-k+1)) return false;
         vector<int> arr(n,0);
         int hash = 0, all = n-1;
 
