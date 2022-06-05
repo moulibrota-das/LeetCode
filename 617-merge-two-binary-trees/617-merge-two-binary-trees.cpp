@@ -19,11 +19,11 @@ public:
         else if(root2 == NULL)
             return root1;
         
-        TreeNode* root = new TreeNode(root1->val + root2->val);
-        root->left = preorder(root1->left, root2->left);
-        root->right = preorder(root1->right, root2->right);
+        root1->val = (root1->val + root2->val);
+        root1->left = preorder(root1->left, root2->left);
+        root1->right = preorder(root1->right, root2->right);
         
-        return root;
+        return root1;
     }
     TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
         return preorder(root1, root2);
