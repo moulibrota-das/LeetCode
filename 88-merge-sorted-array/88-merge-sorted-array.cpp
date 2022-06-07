@@ -11,10 +11,7 @@ public:
                 nums1[ptr--] = nums2[q--];
             }
         }
-        
-        while(p>=0){
-            nums1[ptr--] = nums1[p--];
-        }
+
         while(q>=0){
             nums1[ptr--] = nums2[q--];
         }
