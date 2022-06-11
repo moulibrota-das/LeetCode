@@ -3,28 +3,27 @@ public:
     int minOperations(vector<int>& nums, int x) {
         int n = nums.size();
         map<int,int> map;
+        int total = 0;
+        
+        for(int i=0; i<n; i++){
+            total += nums[i];
+        }
+        
         int sum = 0;
+        int ans = INT_MAX;
         
         for(int i=0; i<n; i++){
             sum += nums[i];
-            map[sum] = i;
-        }
-        
-        sum = 0;
-        int ans = INT_MAX;
-        if(map.find(x) != map.end()){
-            ans = map[x] + 1;
-        }
-        
-        for(int i=n-1; i>=0; i--){
-            sum += nums[i];
             if(sum == x){
-                ans = min(ans, n-i);
+                ans = min(ans,i+1);
             }
-            else if(map.find(x - sum) != map.end() && map[x - sum] < i){
-                int s = n - i + map[x - sum] + 1;
-                ans = min(ans, s);
+            if(total - sum == x){
+                ans = min(ans,n-i-1);
             }
+            if(map.find(x - (total - sum)) != map.end()){
+                ans = min(ans, n-i + map[x - (total - sum)]);
+            }
+            map[sum] = i;
         }
         
         if(ans == INT_MAX) return -1;
