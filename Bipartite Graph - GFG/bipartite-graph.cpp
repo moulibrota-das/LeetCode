@@ -5,27 +5,32 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-bool dfs(int src, int col,vector<int>adj[], int color[],  int vis[]){
-        vis[src] = 1;
-       color[src]=col;
-       for(auto it: adj[src]){
-           if(color[it] == 0 && !dfs(it,3-col,adj,color,vis))
-               return false;
-           if(color[it] != 0 && color[it]!=3-col)
-               return false;
-       }
-       return true;
-}
-bool isBipartite(int V, vector<int>adj[]){
-    int color[V];
-    int vis[V];
-    for(int i=0;i<V;i++)
-        color[i]=0;
-    for(int i=0;i<V;i++)
-        if(color[i] == 0 && !dfs(i,1,adj,color,vis))
-            return false;
-    return true;
-}
+    bool dfs(int v, vector<int> adj[], vector<int> &col){
+        if(col[v] == -1){
+            col[v] = 1;
+        }
+        
+        for(auto it:adj[v]){
+            if(col[it] == -1){
+                col[it] = col[v] ^ 1;
+                if(dfs(it,adj,col) == false)
+                    return false;
+            }
+            else if(col[v] == col[it]){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+	bool isBipartite(int V, vector<int>adj[]){
+        vector<int> col(V,-1);
+	    for(int i=0; i<V; i++){
+	        if(col[i] == -1 && dfs(i,adj,col) == false) 
+	           return false;
+	    }
+	    return true;
+	}
 };
 
 // { Driver Code Starts.
