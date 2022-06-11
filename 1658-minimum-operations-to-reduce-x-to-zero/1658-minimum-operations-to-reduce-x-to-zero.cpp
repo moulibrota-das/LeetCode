@@ -2,31 +2,36 @@ class Solution {
 public:
     int minOperations(vector<int>& nums, int x) {
         int n = nums.size();
-        map<int,int> map;
         int total = 0;
         
         for(int i=0; i<n; i++){
             total += nums[i];
         }
         
-        int sum = 0;
-        int ans = INT_MAX;
+        int sum = 0, target = total - x;
+        int ans = -1, start = 0, end = 0;
         
-        for(int i=0; i<n; i++){
-            sum += nums[i];
-            if(sum == x){
-                ans = min(ans,i+1);
-            }
-            if(total - sum == x){
-                ans = min(ans,n-i-1);
-            }
-            if(map.find(x - (total - sum)) != map.end()){
-                ans = min(ans, n-i + map[x - (total - sum)]);
-            }
-            map[sum] = i;
-        }
+        if(target == 0) return n;
+        else if(target < 0) return -1;
         
-        if(ans == INT_MAX) return -1;
-        else return ans;
+        while(end < n){
+            sum += nums[end];
+            if(sum == target){
+                ans = max(ans,(end - start + 1));
+            }
+            else if(sum > target){
+                while(sum > target){
+                    sum -= nums[start];
+                    start++;
+                }
+                if(sum == target)
+                    ans = max(ans,(end - start + 1));    
+            }
+            
+            end++;
+        }   
+        
+        if(ans == -1) return ans;
+        else return n - ans;
     }
 };
