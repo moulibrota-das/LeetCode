@@ -1,0 +1,1 @@
+just check if we can reach the border following the zeros. If we can then it is not closed.
