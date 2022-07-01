@@ -3,6 +3,7 @@ public:
     static bool comp(vector<int>& a, vector<int>& b){
         return a[1] >= b[1];
     }
+    
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
         int ans = 0, k = truckSize;
         sort(boxTypes.begin(), boxTypes.end(), comp);
@@ -12,7 +13,7 @@ public:
                 ans += it[0] * it[1];
                 k -= it[0];
             }
-            else if(k < it[0]){
+            else{
                 ans += k * it[1];
                 break;
             }
