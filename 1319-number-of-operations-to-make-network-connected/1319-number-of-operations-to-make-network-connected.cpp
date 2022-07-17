@@ -11,8 +11,8 @@ public:
     }
     
     int makeConnected(int n, vector<vector<int>>& connections) {
-        int s = connections.size();
-        int extra = s - (n-1);
+        if(connections.size() < n-1) return -1;
+        
         vector<int> vis(n,0);
         vector<vector<int>> adj(n);
         
@@ -29,7 +29,6 @@ public:
            }
         }
         
-        if(s >= (n - 1)) return comp - 1;
-        else return -1;
+        return comp - 1;
     }
 };
