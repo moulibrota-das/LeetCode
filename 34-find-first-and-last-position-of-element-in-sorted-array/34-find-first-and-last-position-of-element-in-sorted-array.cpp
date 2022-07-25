@@ -9,9 +9,9 @@ public:
             
             if(nums[mid] == target){
                 ansL = mid;
+                 r = mid-1;
             }
-            
-            if(nums[mid] >= target){
+            else if(nums[mid] >= target){
                 r = mid-1;
             }
             else{
@@ -25,9 +25,9 @@ public:
             
             if(nums[mid] == target){
                 ansR = mid;
+                l = mid+1;
             }
-            
-            if(nums[mid] <= target){
+            else if(nums[mid] <= target){
                 l = mid+1;
             }
             else{
