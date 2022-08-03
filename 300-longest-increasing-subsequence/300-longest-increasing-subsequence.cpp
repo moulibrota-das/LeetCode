@@ -7,15 +7,15 @@ public:
         int ans = dp[0];
         
         for(int i=1; i<n; i++){
+            int take = 0;
             for(int j=0; j<i; j++){
-                int take = 0;
-                
                 if(nums[j] < nums[i]){
-                    take = 1 + dp[j];
+                    take = max(take, dp[j]);
                 }
-                dp[i] = max(take, dp[i]);
-                ans = max(ans,dp[i]);
             }
+
+            dp[i] = 1 + take;
+            ans = max(ans,dp[i]);
         }
         return ans;
     }
