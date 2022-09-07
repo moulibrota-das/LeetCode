@@ -1,14 +1,20 @@
 class Solution {
 public:
+    
+    /*  checks if the node is safe or not
+        
+        the nodes whoose outgoing edges does not lead to a terminal node will be
+        cyclic.
+    */
     bool dfs(int i, vector<int>& vis, vector<int>& res, vector<vector<int>>& graph){
         vis[i] = 1;
         res[i] = 1;
         
         for(auto it:graph[i]){
-            if(vis[it]==0 && dfs(it, vis, res, graph)){
+            if(vis[it] == 0 && dfs(it, vis, res, graph)){
                 continue;
             }
-            else if(res[it] == 1 || vis[it] == 1){
+            else if(res[it] == 1){
                 return false;
             }
         }
