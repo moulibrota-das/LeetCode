@@ -14,7 +14,7 @@ public:
             if(vis[it] == 0 && dfs(it, vis, res, graph)){
                 continue;
             }
-            else if(res[it] == 1){
+            else if(res[it] == 1 || vis[it] == 1){
                 return false;
             }
         }
